@@ -7,7 +7,7 @@ let squares = [];
 let currentSnake = [2, 1, 0];
 let direction = 1;
 const width = 10;
-let speedSnake
+let speedSnake;
 let appleIndex = 0;
 let timeId;
 
@@ -16,6 +16,7 @@ let timeId;
 let createGrid = () => {
   for (let i = 0; i < 100; i++) {
     const square = document.createElement("div");
+    //square.textContent = i;
     grid.appendChild(square);
     square.classList.add("square");
     squares.push(square);
@@ -59,7 +60,7 @@ let move = () => {
     (currentSnake[0] - width < 0 && direction === -width) ||
     squares[currentSnake[0] + direction].classList.contains("snake")
   ) {
-    lose.style.display = 'inline';
+    lose.style.display = "inline";
     return clearInterval(timeId);
   }
 
@@ -70,7 +71,7 @@ let move = () => {
   currentSnake.unshift(currentSnake[0] + direction);
 
   //deal with snake head getting the apple
-  if (squares[currentSnake[0]].classList.contains('apple')) {
+  if (squares[currentSnake[0]].classList.contains("apple")) {
     //remove the class of apple
     squares[currentSnake[0]].classList.remove("apple");
     //grow our snake by adding class of snake to it
@@ -82,11 +83,10 @@ let move = () => {
     scoreVar++;
     score.textContent = scoreVar;
     //speed up our snake
-    speedSnake = speedSnake * 0.9
-    clearInterval(timeId)
-    timeId = setInterval(move, speedSnake)
+    speedSnake = speedSnake * 0.9;
+    clearInterval(timeId);
+    timeId = setInterval(move, speedSnake);
     console.log("apple eaten!");
-    
   }
 
   squares[currentSnake[0]].classList.add("snake");
@@ -103,15 +103,15 @@ let generateApples = () => {
 // Start
 
 startBtn.addEventListener("click", () => {
-  clearInterval(timeId)  
+  clearInterval(timeId);
   currentSnake = [2, 1, 0];
   squares.forEach((index) => index.classList.remove("snake", "apple"));
   currentSnake.forEach((index) => squares[index].classList.add("snake"));
-  direction = 1
-  scoreVar = 0
+  direction = 1;
+  scoreVar = 0;
   score.textContent = scoreVar;
   speedSnake = 500;
-  lose.style.display = 'none';
+  lose.style.display = "none";
   generateApples();
   timeId = setInterval(move, speedSnake);
 });
